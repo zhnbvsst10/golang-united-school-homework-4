@@ -35,7 +35,7 @@ func StringSum(input string) (output string, err error) {
 			counter++
 		}
 	}
-	fmt.Println(counter)
+	//fmt.Println(counter)
 	if input == " " {
 		output = " "
 		err = errorEmptyInput
