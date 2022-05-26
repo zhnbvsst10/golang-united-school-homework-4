@@ -2,7 +2,7 @@ package string_sum
 
 import (
 	"errors"
-	"fmt"
+	//"fmt"
 	"regexp"
 	"strconv"
 	"strings"
