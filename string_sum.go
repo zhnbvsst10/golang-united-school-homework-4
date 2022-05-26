@@ -1,7 +1,10 @@
-package string_sum
+package main
 
 import (
 	"errors"
+	"fmt"
+	"strconv"
+	"strings"
 )
 
 //use these errors as appropriate, wrapping them with fmt.Errorf function
@@ -23,5 +26,46 @@ var (
 // Use the errors defined above as described, again wrapping into fmt.Errorf
 
 func StringSum(input string) (output string, err error) {
-	return "", nil
+	var counter int
+	for i := 0; i < len(input); i++ {
+		if string(input[i]) == "+" || string(input[i]) == "-" {
+			counter++
+		}
+	}
+
+	if input == " " {
+		output = " "
+		err = errorEmptyInput
+	} else if counter != 2 {
+		output = " "
+		err = errorNotTwoOperands
+	} else if input != " " && counter == 2 {
+		var cnt int
+		var num, sum int64
+		var tmpstr string
+		input = strings.ReplaceAll(input, " ", "")
+
+		for pos := 1; pos < len(input)+1; pos++ {
+			for i := pos; i < len(input) && input[i] >= '0' && input[i] <= '9'; i++ {
+				cnt++
+			}
+
+			tmpstr = input[pos-1 : pos+cnt]
+			num, _ = strconv.ParseInt(tmpstr, 10, 64)
+			sum += num
+			pos += cnt
+			cnt = 0
+		}
+		temp_sum := int(sum)
+
+		output = strconv.Itoa(temp_sum)
+
+	}
+	//fmt.Println(counter)
+	return output, err
+
+}
+
+func main() {
+	fmt.Println(StringSum("25+6+7+8"))
 }
