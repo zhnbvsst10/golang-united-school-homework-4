@@ -2,7 +2,6 @@ package string_sum
 
 import (
 	"errors"
-	//"fmt"
 	"regexp"
 	"strconv"
 	"strings"
@@ -34,6 +33,7 @@ func StringSum(input string) (output string, err error) {
 		if string(input[i]) == "+" || string(input[i]) == "-" {
 			counter++
 		}
+
 	}
 	//fmt.Println(counter)
 	if input == " " {
@@ -45,9 +45,9 @@ func StringSum(input string) (output string, err error) {
 	} else if IsLetter(input) {
 		var other_out int
 		other_out, err = strconv.Atoi(input)
-		output = string(other_out)
+		output = string(rune(other_out))
 
-	} else if input != " " && ((counter == 2 && (string(input[0]) == "+" || string(input[0]) == "-")) || (counter == 1 && (string(input[0]) != "+" || string(input[0]) != "-"))) && IsLetter(input) == false {
+	} else if input != " " && ((counter == 2 && (string(input[0]) == "+" || string(input[0]) == "-")) || (counter == 1 && (string(input[0]) != "-"))) && IsLetter(input) == false {
 		var cnt int
 		var num, sum int64
 		var tmpstr string
@@ -73,7 +73,3 @@ func StringSum(input string) (output string, err error) {
 	return output, err
 
 }
-
-//func main() {
-//	fmt.Println(StringSum("-25"))
-//}
