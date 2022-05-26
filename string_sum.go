@@ -1,4 +1,4 @@
-package string_sum
+package main
 
 import (
 	"errors"
