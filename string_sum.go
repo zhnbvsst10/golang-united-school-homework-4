@@ -1,8 +1,9 @@
-package main
+package string_sum
 
 import (
 	"errors"
 	"fmt"
+	"regexp"
 	"strconv"
 	"strings"
 )
@@ -27,19 +28,26 @@ var (
 
 func StringSum(input string) (output string, err error) {
 	var counter int
+	var IsLetter = regexp.MustCompile(`[a-z]`).MatchString
+	//fmt.Println(temp_err, temp_string)
 	for i := 0; i < len(input); i++ {
 		if string(input[i]) == "+" || string(input[i]) == "-" {
 			counter++
 		}
 	}
-
+	fmt.Println(counter)
 	if input == " " {
 		output = " "
 		err = errorEmptyInput
-	} else if counter != 2 {
+	} else if counter > 2 || (counter == 1 && (string(input[0]) == "+" || string(input[0]) == "-")) {
 		output = " "
 		err = errorNotTwoOperands
-	} else if input != " " && counter == 2 {
+	} else if IsLetter(input) {
+		var other_out int
+		other_out, err = strconv.Atoi(input)
+		output = string(other_out)
+
+	} else if input != " " && ((counter == 2 && (string(input[0]) == "+" || string(input[0]) == "-")) || (counter == 1 && (string(input[0]) != "+" || string(input[0]) != "-"))) && IsLetter(input) == false {
 		var cnt int
 		var num, sum int64
 		var tmpstr string
@@ -66,6 +74,6 @@ func StringSum(input string) (output string, err error) {
 
 }
 
-func main() {
-	fmt.Println(StringSum("25+6+7+8"))
-}
+//func main() {
+//	fmt.Println(StringSum("-25"))
+//}
